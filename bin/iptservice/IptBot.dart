@@ -12,14 +12,16 @@ class IptBot {
 	}
 
 	void start() {
-	  _config.read()
-	  .then((config) {
-	    return _couch.._config = config
-	        ..connect();
-	  })
-	  .then((couch) {
-	    _worker.._config = _config
-	        ..start();
-	  });
+		_config.read()
+		.then((config) {
+			return _couch
+				.._config = config
+				..connect();
+		})
+		.then((couch) {
+			_worker
+				.._config = _config
+				..start();
+		});
 	}
 }

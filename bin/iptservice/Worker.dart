@@ -9,7 +9,7 @@ class Worker {
 		if (_timer == null) {
 			_timer = new Timer.periodic(new Duration(seconds: _config.workerInterval), onTick);
 		}
-		
+
 		onTick(null);
 	}
 
@@ -33,7 +33,7 @@ class Worker {
 			return response.transform(UTF8.decoder).toList();
 		})
 		.then((List data) {
-			String body = data.join(".");
+			String body = data.join("");
 			new Parser().parse(body);
 		})
 		.catchError((error) {
