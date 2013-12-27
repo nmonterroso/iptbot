@@ -1,0 +1,5 @@
+name: iptbot
+dependencies:
+  browser: any
+  couchclient: any
+  xml: any

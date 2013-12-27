@@ -1,0 +1,4 @@
+{
+	"xmlUrl": "STRING: the url to fetch from ipt",
+	"workerInterval": "INT: time between fetching xmlUrl (in seconds)"
+}
