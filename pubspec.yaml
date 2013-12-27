@@ -1,5 +1,6 @@
 name: iptbot
 dependencies:
   browser: any
-  couchclient: any
+  path: any
+  sqljocky: any
   xml: any

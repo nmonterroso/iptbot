@@ -8,12 +8,55 @@ class Parser {
 	factory Parser() => _instance;
 	Parser._();
 
-	void parse(String data) {
-		XmlElement xml = XML.parse(data);
-		XmlCollection<XmlNode> items = xml.queryAll('item');
+	Future<List<TorrentData>> parse(String data, DataStorage storage) {
+		List<TorrentData> list = new List<TorrentData>();
+		XmlElement xml;
+		XmlCollection<XmlNode> items;
+		int newLastSeen;
 
-		items.forEach((XmlElement item) {
-			IptData data = _helper.extractData(item);
+		try {
+			xml = XML.parse(data);
+			items = xml.queryAll('item');
+		} catch (error) {
+			print(error.toString());
+			return new Future.value(list);
+		}
+
+		Future.wait([storage.getLastSeen(), storage.getFilters()])
+		.then((responses) {
+			int lastSeen = responses[0];
+			List<TorrentFilter> filters = responses[1];
+			List<Future> waitList = [];
+			
+			for (int i = 0; i < items.length; ++i) {
+				XmlElement item = items[i];
+				TorrentData data;
+				
+				try {
+					data = _helper.extractData(item);
+				} catch (error) {
+					print(error.toString());
+					continue;
+				}
+	
+				if (data._torrentId == lastSeen) {
+					break;
+				} else if (newLastSeen == null) {
+					newLastSeen = data._torrentId;
+				}
+	
+				filters.forEach((TorrentFilter filter) {
+					waitList.add(filter.allow(data));
+				});
+			}
+			
+//			waitList.add(storage.setLastSeen(newLastSeen));
+			return Future.wait(waitList);
+		})
+		.then((List responses) {
+//			responses.removeLast(); // remove result of storage.setLastSeen();
+			responses = new List.from(responses)..removeWhere((item) => item == null); // Future.wait() gives ungrowable list
+			return new Future.value(list);
 		});
 	}
 }

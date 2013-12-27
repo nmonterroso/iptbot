@@ -3,7 +3,12 @@ part of iptservice;
 class Worker {
 	Config _config;
 	Timer _timer;
+	DataStorage _storage;
 	bool _working = false;
+
+	Worker(this._config) {
+		_storage = new MysqlStorage(_config); // TODO: init from config?
+	}
 
 	void start() {
 		if (_timer == null) {
@@ -24,12 +29,11 @@ class Worker {
 		}
 
 		_working = true;
-		Couch couch = new Couch(_config);
 
-		couch.connect()
+		_storage.connect()
 		.then((connected) {
 			if (!connected) {
-				throw "unable to connect to couchbase";
+				throw "unable to connect to data storage";
 			}
 
 			return new HttpClient().getUrl(Uri.parse(_config.xmlUrl));
@@ -42,11 +46,17 @@ class Worker {
 		})
 		.then((List data) {
 			String body = data.join("");
-			new Parser().parse(body);
+			new Parser().parse(body, _storage);
 		})
 		.catchError((error) {
 			print(error.toString());
 		})
-		.whenComplete(() => _working = false);
+		.whenComplete(() {
+			_working = false;
+
+			if (_storage.open) {
+				_storage.close();
+			}
+		});
 	}
 }

@@ -2,12 +2,11 @@ part of iptservice;
 
 class IptBot {
 	Config _config;
-	Couch _couch;
 	Worker _worker;
 
 	IptBot() {
 		_config = new Config();
-		_worker = new Worker();
+		_worker = new Worker(_config);
 	}
 
 	void start() {

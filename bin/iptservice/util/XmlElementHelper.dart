@@ -1,8 +1,8 @@
 part of iptservice;
 
 class XmlElementHelper {
-	IptData extractData(XmlElement e) {
-		IptData data = new IptData();
+	TorrentData extractData(XmlElement e) {
+		TorrentData data = new TorrentData();
 		XmlElement child;
 		XmlText text;
 
@@ -14,10 +14,10 @@ class XmlElementHelper {
 
 				switch (child.name) {
 					case 'title':
-						data._title = text.text;
+						data.title = text.text;
 						break;
 					case 'link':
-						data._link = text.text;
+						data.link = text.text;
 						break;
 					case 'pubDate':
 						data._date = text.text;

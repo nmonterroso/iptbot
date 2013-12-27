@@ -48,9 +48,12 @@ class Config {
 	}
 
 	String get xmlUrl => get('xmlUrl');
-	String get couchServer => get('couchbase.server');
-	String get couchBucket => get('couchbase.bucket');
-	String get couchPasswd => get('couchbase.password');
+
+	String get mysqlHost => get('mysql.host');
+	int get mysqlPort => get('mysql.port');
+	String get mysqlUser => get('mysql.user');
+	String get mysqlPass => get('mysql.pass');
+	String get mysqlDb => get('mysql.db');
 
 	int get workerInterval => get('workerInterval');
 }
