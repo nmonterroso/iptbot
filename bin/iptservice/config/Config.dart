@@ -15,18 +15,19 @@ class Config {
 	Future<Config> read() {
 		File configFile = new File(_configPath);
 
-		return configFile.exists()
-			.then((exists) {
-				if (exists) {
-					return configFile.readAsString();
-				} else {
-					throw "config file does not exist";
-				}
-			})
-			.then((configData) {
-				_config = JSON.decode(configData);
-				return new Future.value(this);
-			});
+		return
+			configFile.exists()
+				.then((exists) {
+					if (exists) {
+						return configFile.readAsString();
+					} else {
+						throw "config file does not exist";
+					}
+				})
+				.then((configData) {
+					_config = JSON.decode(configData);
+					return new Future.value(this);
+				});
 	}
 
 	dynamic get(String key) {

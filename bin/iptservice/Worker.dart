@@ -24,8 +24,16 @@ class Worker {
 		}
 
 		_working = true;
-		new HttpClient()
-		.getUrl(Uri.parse(_config.xmlUrl))
+		Couch couch = new Couch(_config);
+
+		couch.connect()
+		.then((connected) {
+			if (!connected) {
+				throw "unable to connect to couchbase";
+			}
+
+			return new HttpClient().getUrl(Uri.parse(_config.xmlUrl));
+		})
 		.then((HttpClientRequest request) {
 			return request.close();
 		})
