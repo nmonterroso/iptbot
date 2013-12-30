@@ -8,7 +8,7 @@ class TorrentData {
 	static const double KB_TO_GB = 1.074e+9;
 	static const double KB_TO_MB = 1.049e+6;
 
-	int _torrentId, _season, _episode;
+	int _subId, _torrentId, _season, _episode;
 	String _title, _link, _date;
 	double _size;
 

@@ -1,13 +1,10 @@
 part of iptservice;
 
 class MysqlStorage extends DataStorage {
-	Config _config;
 	ConnectionPool _pool;
 
-	MysqlStorage(this._config);
-  
-	Future<bool> connect() {
-		_pool = new ConnectionPool(host: _config.mysqlHost, port: _config.mysqlPort, user: _config.mysqlUser, password: _config.mysqlPass, db: _config.mysqlDb);
+	Future<bool> connect(Config config) {
+		_pool = new ConnectionPool(host: config.mysqlHost, port: config.mysqlPort, user: config.mysqlUser, password: config.mysqlPass, db: config.mysqlDb);
 		return new Future.value(true);
 	}
 
@@ -44,6 +41,9 @@ class MysqlStorage extends DataStorage {
 			_pool.prepareExecute(sql, [lastSeen])
 			.then((result) {
 				return new Future.value(true);
+			})
+			.catchError((error) {
+				print(error.toString());
 			});
 	}
 	
@@ -62,6 +62,34 @@ class MysqlStorage extends DataStorage {
 			})
 			.then((result) {
 				return new Future.value(filters);
+			})
+			.catchError((error) {
+				print(error.toString());
+			});
+	}
+	
+	Future _save(List<TorrentData> torrents) {
+		String sql = ""
+			"REPLACE INTO `torrents`"
+			"SET `sub_id`=?, `torrent_id`=?, `season`=?, `episode`=?, "
+				"`title`=?, `link`=?, `date`=?, `size`=?";
+		
+		List<List<dynamic>> params = [];
+		for (TorrentData t in torrents) {
+			params.add([t._subId, t._torrentId, t._season, t._episode, t._title, t._link, t._date, t._size]);
+		}
+		
+		return 
+			_pool.prepare(sql)
+			.then((query) {
+				return query.executeMulti(params);
+			})
+			.then((results) {
+				return new Future.value(true);
+			})
+			.catchError((error) {
+				print(error.toString());
+				return new Future.value(false);
 			});
 	}
 

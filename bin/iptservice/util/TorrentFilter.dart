@@ -12,7 +12,6 @@ class TorrentFilter {
 	}
 
 	Future<TorrentData> allow(TorrentData torrent) {
-		bool matches = true;
 		String title = torrent._title.toLowerCase();
 
 		for (String r in _require) {
@@ -26,6 +25,7 @@ class TorrentFilter {
 			TorrentData result = null;
 			contains = false; // TODO: remove this
 			if (!contains) {
+				torrent._subId = _subId;
 				result = torrent;
 			}
 			
