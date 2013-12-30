@@ -1,6 +1,8 @@
 name: iptbot
 dependencies:
+  angular: any
   browser: any
+  http_server: any
   path: any
   sqljocky: any
   xml: any
