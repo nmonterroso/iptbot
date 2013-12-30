@@ -1,4 +1,4 @@
-part of iptservice;
+part of core;
 
 class TorrentData {
 	static final RegExp _sizeRegex = new RegExp(r'([0-9\.]+) (MB|GB)$');
@@ -60,6 +60,9 @@ class TorrentData {
 
 		return (_size / KB_TO_MB).toStringAsFixed(2)+" MB";
 	}
+	
+	String get title => _title;
+	int get torrentId => _torrentId;
 	
 	static List<int> getSeasonAndEpisode(String title) {
 		Match m = _tvEpisodeRegex.firstMatch(title);

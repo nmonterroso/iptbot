@@ -1,4 +1,4 @@
-part of iptservice;
+part of core;
 
 class XmlElementHelper {
 	TorrentData extractData(XmlElement e) {

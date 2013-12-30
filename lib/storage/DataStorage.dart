@@ -1,4 +1,4 @@
-part of iptservice;
+part of core;
 
 abstract class DataStorage {
 	bool get open;

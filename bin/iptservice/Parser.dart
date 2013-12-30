@@ -39,10 +39,10 @@ class Parser {
 						continue;
 					}
 		
-					if (data._torrentId == lastSeen) {
+					if (data.torrentId == lastSeen) {
 						break;
 					} else if (newLastSeen == null) {
-						newLastSeen = data._torrentId;
+						newLastSeen = data.torrentId;
 					}
 		
 					filters.forEach((TorrentFilter filter) {
@@ -50,12 +50,12 @@ class Parser {
 					});
 				}
 				
-	//			waitList.add(storage.setLastSeen(newLastSeen));
+				waitList.add(storage.setLastSeen(newLastSeen));
 				return Future.wait(waitList);
 			})
 			.then((List responses) {
-	//			responses.removeLast(); // remove result of storage.setLastSeen();
 				responses = new List.from(responses)..removeWhere((item) => item == null); // Future.wait() gives ungrowable list
+				responses.removeLast(); // remove result of storage.setLastSeen();
 				return new Future.value(responses);
 			});
 	}

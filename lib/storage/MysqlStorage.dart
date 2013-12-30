@@ -1,4 +1,4 @@
-part of iptservice;
+part of core;
 
 class MysqlStorage extends DataStorage {
 	ConnectionPool _pool;

@@ -1,4 +1,4 @@
-part of iptservice;
+part of core;
 
 class DirectoryWatcher {
 	static Map<String, DirectoryWatcher> _cache = new Map<String, DirectoryWatcher>();

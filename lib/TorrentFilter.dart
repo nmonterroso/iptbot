@@ -1,4 +1,4 @@
-part of iptservice;
+part of core;
 
 class TorrentFilter {
 	int _subId;

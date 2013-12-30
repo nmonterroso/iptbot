@@ -1,4 +1,4 @@
-part of iptservice;
+part of core;
 
 class Config {
 	static final Config _instance = new Config._();
