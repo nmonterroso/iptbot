@@ -1,6 +1,7 @@
-import 'web/__init.dart';
-import 'bin/iptservice/__init.dart';
+import 'web/server/__init.dart';
+import 'service/__init.dart';
 
 void main() {
 	IptBot bot = new IptBot()..start();
+	Server server = new Server()..start();
 }

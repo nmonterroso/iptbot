@@ -1,6 +1,6 @@
 library iptservice;
 
-// core
+// core library
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
@@ -9,9 +9,9 @@ import 'dart:convert';
 import 'package:xml/xml.dart';
 
 // other libraries
-import '../../lib/__init.dart';
+import '../lib/__init.dart';
 
-// library components
+// components
 part 'IptBot.dart';
 part 'Worker.dart';
 part 'Parser.dart';

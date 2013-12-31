@@ -2,7 +2,7 @@ part of core;
 
 class Config {
 	static final Config _instance = new Config._();
-	static const CONFIG_PATH = '/iptservice/config/config.json';
+	static const CONFIG_PATH = '/lib/config/config.json';
 
 	String _configPath;
 	Map _config;
@@ -54,6 +54,10 @@ class Config {
 	String get mysqlUser => get('mysql.user');
 	String get mysqlPass => get('mysql.pass');
 	String get mysqlDb => get('mysql.db');
+	
+	String get httpHost => get('http.host');
+	bool get httpCache => get('http.cache');
+	int get httpPort => get('http.port');
 
 	int get workerInterval => get('workerInterval');
 }
