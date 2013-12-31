@@ -37,12 +37,25 @@ class Server {
 		
 		handler.handle(req)
 		.then((response) {
-			req.response.statusCode = response['code'];
-			req.response.write(response['body']);
+			String body;
+			int code;
+			
+			if (response is ApiResponse) {
+				body = response._body;
+				code = response._code;
+			} else {
+				body = response['body'];
+				code = response['code'];
+			}
+			
+			req.response.statusCode = code;
+			req.response.write(body);
 			req.response.close();
 		})
 		.catchError((error) {
 			print(error.toString());
+			req.response.write("an unexpected error occurred");
+			req.response.close();
 		});
 	}
 }

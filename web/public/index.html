@@ -6,8 +6,11 @@
 </head>
 <body>
   
-  <h3>Hello {{name}}!</h3>
-  name: <input type="text" ng-model="name">
+  <div index>
+  	<div ng-repeat="torrent in index.torrents">
+  		{{torrent.title}}
+  	</div>
+  </div>
   
   <script type="application/dart" src="index.dart"></script>
   <script type="text/javascript" src="packages/browser/dart.js"></script>

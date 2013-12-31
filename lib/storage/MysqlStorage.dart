@@ -28,7 +28,7 @@ class MysqlStorage extends DataStorage {
 			});
 	}
 
-	Future<bool>setLastSeen(int lastSeen) {
+	Future<bool> setLastSeen(int lastSeen) {
 		if (lastSeen == null) {
 			return new Future.value(false);
 		}
