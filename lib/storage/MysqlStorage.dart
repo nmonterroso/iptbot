@@ -44,6 +44,7 @@ class MysqlStorage extends DataStorage {
 			})
 			.catchError((error) {
 				print(error.toString());
+				return new Future.value(false);
 			});
 	}
 	

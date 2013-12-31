@@ -4,7 +4,7 @@ abstract class DataStorage {
 	bool get open;
 	Future<bool> connect(Config config);
 	Future<int> getLastSeen();
-	Future<bool>setLastSeen(int lastSeen);
+	Future<bool> setLastSeen(int lastSeen);
 	Future<List<TorrentFilter>> getFilters();
 	void close();
 	
