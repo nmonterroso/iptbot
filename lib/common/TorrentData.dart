@@ -1,4 +1,4 @@
-part of core;
+part of common;
 
 class TorrentData {
 	static final RegExp _sizeRegex = new RegExp(r'([0-9\.]+) (MB|GB)$');
@@ -11,6 +11,17 @@ class TorrentData {
 	int _subId, _torrentId, _season, _episode;
 	String _title, _link, _date;
 	double _size;
+	
+	TorrentData() {
+	
+	}
+	
+	TorrentData.fromStorage(row) {
+		title = (row.title as Blob).toString();
+		link = (row.link as Blob).toString();
+		date = row.date;
+		_size = row.size;
+	}
 
 	void set date(String date) {
 		_date = date;
@@ -52,6 +63,10 @@ class TorrentData {
 		_torrentId = int.parse(m[1]);
 		_link = link;
 	}
+	
+	void set subId(int subId) {
+		_subId = subId;
+	}
 
 	String get friendlySize {
 		if (_size > KB_TO_GB) {
@@ -62,7 +77,13 @@ class TorrentData {
 	}
 	
 	String get title => _title;
+	String get link => _link;
+	String get date => _date;
+	int get subId => _subId;
 	int get torrentId => _torrentId;
+	int get season => _season;
+	int get episode => _episode;
+	double get size => _size;
 	
 	static List<int> getSeasonAndEpisode(String title) {
 		Match m = _tvEpisodeRegex.firstMatch(title);

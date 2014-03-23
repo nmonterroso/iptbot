@@ -50,7 +50,7 @@ class DirectoryWatcher {
 			});
 		})
 		.whenComplete(() {
-			_watcher = dir.watch(events: FileSystemEvent.CREATE, recursive: true);
+			_watcher = dir.watch(events: FileSystemEvent.ALL, recursive: true);
 			_watcherSub = _watcher.listen(_onSubEvent);
 		});
 	}
@@ -67,7 +67,9 @@ class DirectoryWatcher {
 		}
 		
 		try {
-			List<int> details = TorrentData.getSeasonAndEpisode(path.split(event.path).last);
+			String file = path.split(event.path).last;
+			print("NEW FILE: ${file}");
+			List<int> details = TorrentData.getSeasonAndEpisode(file);
 			int season = details[0], episode = details[1];
 			_episodeListAdd(season, episode);
 		} catch (error) {}

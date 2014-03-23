@@ -12,7 +12,7 @@ class TorrentFilter {
 	}
 
 	Future<TorrentData> allow(TorrentData torrent) {
-		String title = torrent._title.toLowerCase();
+		String title = torrent.title.toLowerCase();
 
 		for (String r in _require) {
 			if (!title.contains(r.toLowerCase())) {
@@ -20,12 +20,12 @@ class TorrentFilter {
 			}
 		}
 
-		return new DirectoryWatcher(_rootSystemLocation).contains(torrent._season, torrent._episode)
+		return new DirectoryWatcher(_rootSystemLocation).contains(torrent.season, torrent.episode)
 		.then((contains) {
 			TorrentData result = null;
 			contains = false; // TODO: remove this
 			if (!contains) {
-				torrent._subId = _subId;
+				torrent.subId = _subId;
 				result = torrent;
 			}
 			

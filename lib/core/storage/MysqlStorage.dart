@@ -1,11 +1,22 @@
 part of core;
 
 class MysqlStorage extends DataStorage {
+	static final MysqlStorage _instance = new MysqlStorage._();
+	
 	ConnectionPool _pool;
+	
+	factory MysqlStorage() {
+		return _instance;
+	}
+	MysqlStorage._();
 
 	Future<bool> connect(Config config) {
 		_pool = new ConnectionPool(host: config.mysqlHost, port: config.mysqlPort, user: config.mysqlUser, password: config.mysqlPass, db: config.mysqlDb);
 		return new Future.value(true);
+	}
+	
+	Future<bool> isConnected() {
+		return new Future.value(_pool != null);
 	}
 
 	Future<int> getLastSeen() {
@@ -77,7 +88,7 @@ class MysqlStorage extends DataStorage {
 		
 		List<List<dynamic>> params = [];
 		for (TorrentData t in torrents) {
-			params.add([t._subId, t._torrentId, t._season, t._episode, t._title, t._link, t._date, t._size]);
+			params.add([t.subId, t.torrentId, t.season, t.episode, t.title, t.link, t.date, t.size]);
 		}
 		
 		return 
@@ -91,6 +102,29 @@ class MysqlStorage extends DataStorage {
 			.catchError((error) {
 				print(error.toString());
 				return new Future.value(false);
+			});
+	}
+	
+	Future<List<TorrentData>> getTorrents() {
+		List<TorrentData> torrents = [];
+		String sql = ""
+			"SELECT *"
+			"FROM `torrents`"
+			"ORDER BY `sub_id` ASC, `size` DESC";
+		
+		return
+			_pool.query(sql)
+			.then((results) {
+				return results.forEach((row) {
+					torrents.add(new TorrentData.fromStorage(row));
+				});
+			})
+			.then((_) {
+				return new Future.value(torrents);
+			})
+			.catchError((error) {
+				print(error.toString());
+				return new Future.value([]);
 			});
 	}
 

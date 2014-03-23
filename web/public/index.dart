@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:angular/angular.dart';
 
 // other libraries
-import '../../lib/__init.dart';
+import 'lib/common/__init.dart';
 
 // components
 part 'controller/index.dart';

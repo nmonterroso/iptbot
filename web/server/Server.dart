@@ -10,6 +10,7 @@ class Server {
 	void start() {
 		_config.read()
 		.then((config) {
+			ApiBase._config = _config;
 			listen();
 		});
 	}
@@ -41,7 +42,7 @@ class Server {
 			int code;
 			
 			if (response is ApiResponse) {
-				body = response._body;
+				body = response.body;
 				code = response._code;
 			} else {
 				body = response['body'];

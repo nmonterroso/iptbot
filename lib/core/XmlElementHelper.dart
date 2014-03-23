@@ -20,7 +20,7 @@ class XmlElementHelper {
 						data.link = text.text;
 						break;
 					case 'pubDate':
-						data._date = text.text;
+						data.date = text.text;
 						break;
 					case 'description':
 						data.size = text.text;

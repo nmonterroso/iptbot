@@ -9,7 +9,8 @@ import 'dart:convert';
 import 'package:xml/xml.dart';
 
 // other libraries
-import '../lib/__init.dart';
+import '../lib/common/__init.dart';
+import '../lib/core/__init.dart';
 
 // components
 part 'IptBot.dart';
