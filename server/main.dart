@@ -1,4 +1,4 @@
-import 'web/server/__init.dart';
+import 'server/__init.dart';
 import 'service/__init.dart';
 
 void main() {

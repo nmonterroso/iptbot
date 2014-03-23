@@ -4,8 +4,4 @@ packages/*
 */*/*/packages
 */*/*/*/packages
 */*/*/*/*/packages
-*.iml
-*.ipr
-*.iws
 lib/config/config.json
-web/public/lib
