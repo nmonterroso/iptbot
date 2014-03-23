@@ -1,4 +1,4 @@
-library web;
+library server;
 
 // core library
 import 'dart:io';
@@ -10,8 +10,7 @@ import 'dart:convert';
 import 'package:http_server/http_server.dart';
 
 // other libraries
-import '../../lib/common/__init.dart';
-import '../../lib/core/__init.dart';
+import '../../lib/__init.dart';
 
 // components
 part 'Server.dart';

@@ -1,4 +1,4 @@
-part of web;
+part of server;
 
 class TorrentApi extends ApiBase {
 	Future<ApiResponse> list({id:0}) {

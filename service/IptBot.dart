@@ -1,4 +1,4 @@
-part of iptservice;
+part of service;
 
 class IptBot {
 	Config _config;

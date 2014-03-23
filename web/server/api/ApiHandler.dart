@@ -1,4 +1,4 @@
-part of web;
+part of server;
 
 class ApiHandler {
 	ApiBase _api;

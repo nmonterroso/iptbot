@@ -1,4 +1,4 @@
-part of common;
+part of core;
 
 class TorrentData {
 	static final RegExp _sizeRegex = new RegExp(r'([0-9\.]+) (MB|GB)$');

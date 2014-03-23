@@ -1,4 +1,4 @@
-part of web;
+part of server;
 
 class ApiBase {
 	static Config _config;

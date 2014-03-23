@@ -1,4 +1,4 @@
-part of web;
+part of server;
 
 class DefaultHandler {
 	static final _instance = new DefaultHandler._();

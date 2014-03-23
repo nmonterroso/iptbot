@@ -1,4 +1,4 @@
-part of iptservice;
+part of service;
 
 class Parser {
 	static final Parser _instance = new Parser._();
