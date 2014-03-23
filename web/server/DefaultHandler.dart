@@ -1,6 +1,6 @@
 part of server;
 
-class DefaultHandler {
+class DefaultHandler extends Handler {
 	static final _instance = new DefaultHandler._();
 	
 	Map <String, String> _cache = new Map<String, String>();

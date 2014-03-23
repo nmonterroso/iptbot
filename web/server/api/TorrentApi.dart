@@ -1,7 +1,14 @@
 part of server;
 
 class TorrentApi extends ApiBase {
-	Future<ApiResponse> list({id:0}) {
+	static final TorrentApi _instance = new TorrentApi._();
+
+	factory TorrentApi() {
+		return _instance;
+	}
+	TorrentApi._() : super();
+
+	Future<ApiResponse> list() {
 		ApiResponse response = new ApiResponse();
 		
 		return
