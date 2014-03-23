@@ -4,5 +4,6 @@ dependencies:
   browser: any
   http_server: any
   path: any
+  route: any
   sqljocky: any
   xml: any
