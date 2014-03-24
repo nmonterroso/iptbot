@@ -1,0 +1,21 @@
+<html ng-csp>
+<head lang="en">
+    <title>IPT Bot</title>
+    <script data-main="js/main.js" src="js/vendor/require.js"></script>
+    <script src="js/require.config.js"></script>
+</head>
+<body ng-app="iptbot">
+
+
+
+    <ul ng-controller="TestCtrl">
+        <li ng-repeat="phone in phones">
+            {{phone.name}}
+        </li>
+    </ul>
+
+
+
+
+</body>
+</html>
