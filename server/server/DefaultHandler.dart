@@ -2,6 +2,7 @@ part of server;
 
 class DefaultHandler extends Handler {
 	static final _instance = new DefaultHandler._();
+	static final PUBLIC_DIR = Directory.current.path+'/../public';
 	
 	Map <String, String> _cache = new Map<String, String>();
 	Config _config;
@@ -35,7 +36,7 @@ class DefaultHandler extends Handler {
 	}
 	
 	Future getPage(String path) {
-		File page = new File(Directory.current.path+'/web/public/${path}');
+		File page = new File('${PUBLIC_DIR}/${path}');
 		
 		return
 			page.exists()
