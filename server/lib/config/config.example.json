@@ -1,4 +1,16 @@
 {
 	"xmlUrl": "STRING: the url to fetch from ipt",
-	"workerInterval": "INT: time between fetching xmlUrl (in seconds)"
+	"workerInterval": "INT: time between fetching xmlUrl (in seconds)",
+	"mysql": {
+		"host": "STRING: hostname for mysql instance",
+		"port": "INT: port #",
+		"user": "STRING",
+		"pass": "STRING",
+		"db": "STRING"
+	},
+	"http": {
+		"host": "STRING: ip address to bind to for host",
+		"port": "INT: port #",
+		"cache": "BOOL: whether or not to cache static files"
+	}
 }
