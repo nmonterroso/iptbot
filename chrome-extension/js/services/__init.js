@@ -1,3 +1,3 @@
 define([
-	'./torrent_list'
+	'./api'
 ], function() {});

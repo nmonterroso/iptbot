@@ -8,11 +8,14 @@
 
 
 
-    <ul ng-controller="TestCtrl">
-        <li ng-repeat="phone in phones">
-            {{phone.name}}
-        </li>
-    </ul>
+    <div ng-controller="TorrentListController">
+        <img src="icon.png" ng-show="!loaded" />
+        <table ng-show="loaded">
+            <tr ng-repeat="i in torrents">
+
+            </tr>
+        </table>
+    </div>
 
 
 

@@ -15,7 +15,8 @@ function(ng, _) {
 	});
 
 	require([
-		'controllers/__init'
+		'controllers/__init',
+		'services/__init'
 	], function() {
 		ng.element(document).ready(function() {
 			ng.bootstrap(document, modules)
