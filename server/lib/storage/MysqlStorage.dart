@@ -105,15 +105,25 @@ class MysqlStorage extends DataStorage {
 			});
 	}
 	
-	Future<List<TorrentData>> getTorrents() {
+	Future<List<TorrentData>> getTorrents({from: 0, limit: 20}) {
 		List<TorrentData> torrents = [];
+		List<dynamic> params = [];
+
 		String sql = ""
-			"SELECT *"
-			"FROM `torrents`"
-			"ORDER BY `sub_id` ASC, `size` DESC";
-		
+			"SELECT *, str_to_date(`date`, '%a, %d %b %Y %T') AS date_read "
+			"FROM `torrents` "
+			"WHERE 1 ";
+
+		if (from > 0) {
+			sql += "AND date_read < FROM_UNIXTIME(?)";
+			params.add(from);
+		}
+
+		sql += "ORDER BY date_read DESC LIMIT ?";
+		params.add(limit);
+
 		return
-			_pool.query(sql)
+			_pool.prepareExecute(sql, params)
 			.then((results) {
 				return results.forEach((row) {
 					torrents.add(new TorrentData.fromStorage(row));

@@ -8,12 +8,20 @@ class TorrentApi extends ApiBase {
 	}
 	TorrentApi._() : super();
 
-	Future<ApiResponse> list() {
+	Future<ApiResponse> list({from: 0, limit: 10}) {
+		if (from is! int) {
+			from = int.parse(from);
+		}
+
+		if (limit is! int) {
+			limit = int.parse(limit);
+		}
+
 		ApiResponse response = new ApiResponse();
 		
 		return
 			storage.then((DataStorage storage) {
-				return storage.getTorrents();
+				return storage.getTorrents(from:from, limit:limit);
 			})
 			.then((List<TorrentData> torrents) {
 				List responseData = [];

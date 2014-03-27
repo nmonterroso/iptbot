@@ -23,7 +23,7 @@ class XmlElementHelper {
 						data.date = text.text;
 						break;
 					case 'description':
-						data.size = text.text;
+						data.setSize(text.text);
 						break;
 					default:
 						continue;

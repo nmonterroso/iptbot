@@ -1,7 +1,7 @@
 part of server;
 
 abstract class ApiHandler extends Handler {
-	Map<String, ApiHandler> _handlers = new Map<String, ApiHandler>();
+	Map<String, ApiBase> _handlers = new Map<String, ApiBase>();
 
 	Future handle(HttpRequest req) {
 		String path = req.uri.path.substring(1);
@@ -13,6 +13,7 @@ abstract class ApiHandler extends Handler {
 
 		parts.removeAt(0);
 		String api = parts.removeAt(0), method = parts.removeAt(0);
+		req.uri.queryParameters;
 
 		if (!_handlers.containsKey(api)) {
 			throw "unknown api: ${api}";
@@ -21,16 +22,23 @@ abstract class ApiHandler extends Handler {
 		return
 			HttpBodyHandler.processRequest(req)
 			.then((HttpBody body) {
+				Map<Symbol, dynamic> namedParams = {};
+
+				for (String key in req.uri.queryParameters.keys) {
+					namedParams[new Symbol(key)] = req.uri.queryParameters[key];
+				}
+
 				if (body.body is Map) {
-					Map<Symbol, dynamic> namedParams = {};
 					for (String key in body.body.keys) {
 						namedParams[new Symbol(key)] = body.body[key];
 					}
-
-					return _handlers[api].call(method, parts, namedParams);
-				} else {
-					return _handlers[api].call(method, parts, null);
 				}
+
+				if (namedParams.isEmpty) {
+					namedParams = null;
+				}
+
+				return _handlers[api].call(method, parts, namedParams);
 			});
 	}
 }

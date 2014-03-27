@@ -21,7 +21,7 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 
 			var extractApiArgs = function(requestMethod, args) {
 				var params = {}, onSuccess, onFailure, removeAmount = 0;
-				onFailure = onSuccess = function() {};
+				onFailure = onSuccess = noop;
 
 				_.eachRight(args, function(arg) {
 					if (_.isFunction(arg)) {
@@ -43,6 +43,12 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 					}
 				});
 
+				// only one cb provided - it's a success cb
+				if (onFailure != null && onSuccess == null) {
+					onSuccess = onFailure;
+					onFailure = noop;
+				}
+
 				var url = buildRequestUrl(_.initial(args, removeAmount));
 
 				return [requestMethod, url, onSuccess, onFailure, params];
@@ -57,6 +63,8 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 
 				return url;
 			};
+
+			var noop = function() {};
 
 			return this;
 		}]);

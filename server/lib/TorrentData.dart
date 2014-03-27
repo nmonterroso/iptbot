@@ -10,7 +10,7 @@ class TorrentData {
 
 	int _subId, _torrentId, _season, _episode;
 	String _title, _link, _date;
-	double _size;
+	num _size;
 	
 	TorrentData() {
 	
@@ -27,7 +27,7 @@ class TorrentData {
 		_date = date;
 	}
 
-	void set size(String size) {
+	void setSize(String size) {
 		Match m = _sizeRegex.firstMatch(size);
 
 		if (m == null) {
@@ -83,7 +83,7 @@ class TorrentData {
 	int get torrentId => _torrentId;
 	int get season => _season;
 	int get episode => _episode;
-	double get size => _size;
+	num get size => _size;
 	
 	static List<int> getSeasonAndEpisode(String title) {
 		Match m = _tvEpisodeRegex.firstMatch(title);
