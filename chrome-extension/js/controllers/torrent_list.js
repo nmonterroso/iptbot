@@ -1,5 +1,5 @@
 define(['angular', 'lodash'], function(ng, _) {
-	ng.module('iptbot.controlers')
+	ng.module('iptbot.controllers')
 		.controller('TorrentListController', ['$scope', 'ApiService', function($scope, api) {
 			$scope.torrents = [];
 			$scope.loaded = false;
@@ -10,8 +10,10 @@ define(['angular', 'lodash'], function(ng, _) {
 				},
 				getData = function() {
 					api.get('torrent', 'list', {'since': lastLoad}, function(list) {
-						_.each()
+						console.log(list);
 					});
 				};
+
+			init();
 		}]);
 });

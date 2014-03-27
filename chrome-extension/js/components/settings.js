@@ -7,7 +7,7 @@ define(['lodash'], function(_) {
 		};
 
 		var settings = {};
-		_.each(accept, function(key, definition) {
+		_.each(accept, function(definition, key) {
 			var required = definition.required || false;
 			var value = config[key] || definition.default || null;
 

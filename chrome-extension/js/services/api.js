@@ -1,6 +1,6 @@
 define(['angular', 'lodash', 'config'], function(ng, _, config) {
 	ng.module('iptbot.services')
-		.service('ApiService', [, function() {
+		.factory('ApiService', function() {
 			var self = this;
 			self.methodGet = 'GET';
 			self.methodPost = 'POST';
@@ -25,10 +25,10 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 
 				_.eachRight(args, function(arg) {
 					if (_.isFunction(arg)) {
-						if (onFailure == null) {
+						if (onFailure == noop) {
 							++removeAmount;
 							onFailure = arg;
-						} else if (onSuccess == null) {
+						} else if (onSuccess == noop) {
 							onSuccess = arg;
 							++removeAmount;
 						} else {
@@ -44,7 +44,7 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 				});
 
 				// only one cb provided - it's a success cb
-				if (onFailure != null && onSuccess == null) {
+				if (onFailure != noop && onSuccess == noop) {
 					onSuccess = onFailure;
 					onFailure = noop;
 				}
@@ -54,10 +54,10 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 				return [requestMethod, url, onSuccess, onFailure, params];
 			};
 
-			var buildRequestUrl = function() {
+			var buildRequestUrl = function(pathParts) {
 				var url = config.server+'api';
 
-				_.each(arguments, function(arg) {
+				_.each(pathParts, function(arg) {
 					url += '/'+arg;
 				});
 
@@ -67,5 +67,5 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 			var noop = function() {};
 
 			return this;
-		}]);
+		});
 });
