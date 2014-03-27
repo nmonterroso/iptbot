@@ -2,7 +2,7 @@ part of core;
 
 class Config {
 	static final Config _instance = new Config._();
-	static const CONFIG_PATH = '/lib/config/config.json';
+	static const CONFIG_PATH = '/utils/config/config.json';
 
 	String _configPath;
 	Map _config;

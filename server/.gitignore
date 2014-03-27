@@ -4,4 +4,4 @@ packages/*
 */*/*/packages
 */*/*/*/packages
 */*/*/*/*/packages
-lib/config/config.json
+utils/config/config.json
