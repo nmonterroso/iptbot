@@ -78,6 +78,7 @@ class TorrentData {
 	
 	String get title => _title;
 	String get link => _link;
+	String get detailLink => "http://iptorrents.com/details.php?id="+torrentId.toString();
 	String get date => _date;
 	int get subId => _subId;
 	int get torrentId => _torrentId;

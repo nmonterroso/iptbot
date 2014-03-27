@@ -1,25 +1,27 @@
 define(['angular', 'lodash', 'config'], function(ng, _, config) {
 	ng.module('iptbot.services')
-		.factory('ApiService', function() {
+		.factory('ApiService', ['$http', function($http) {
 			var self = this;
-			self.methodGet = 'GET';
-			self.methodPost = 'POST';
 
 			this.get = function(api, method /**, args..., params, onSuccess, onFailure */) {
-				var args = extractApiArgs(self.methodGet, arguments);
-				return self.invoke.apply(self, args);
+				var args = extractApiArgs(arguments);
+				$http.get(args.url, {
+					params: args.params
+				}).then(
+					function(response) {
+						args.success(response.data);
+					},
+					function(e) {
+						args.failure(e);
+					}
+				)
 			};
 
 			this.post = function(api, method /**, args..., params, onSuccess, onFailure */) {
-				var args = extractApiArgs(self.methodPost, arguments);
-				return self.invoke.apply(self, args);
+				var args = extractApiArgs(arguments);
 			};
 
-			this.invoke = function(method, url, onSuccess, onFailure, params) {
-				console.log(method, url, onSuccess, onFailure, params);
-			};
-
-			var extractApiArgs = function(requestMethod, args) {
+			var extractApiArgs = function(args) {
 				var params = {}, onSuccess, onFailure, removeAmount = 0;
 				onFailure = onSuccess = noop;
 
@@ -51,7 +53,12 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 
 				var url = buildRequestUrl(_.initial(args, removeAmount));
 
-				return [requestMethod, url, onSuccess, onFailure, params];
+				return {
+					url: url,
+					success: onSuccess,
+					failure: onFailure,
+					params: params
+				};
 			};
 
 			var buildRequestUrl = function(pathParts) {
@@ -67,5 +74,5 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 			var noop = function() {};
 
 			return this;
-		});
+		}]);
 });

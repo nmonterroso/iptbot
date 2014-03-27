@@ -28,7 +28,13 @@ class TorrentApi extends ApiBase {
 				for (TorrentData t in torrents) {
 					responseData.add({
 						"id": t.torrentId,
-						"title": t.title
+						"title": t.title,
+						"link": t.link,
+						"detailLink": t.detailLink,
+						"season": t.season,
+						"episode": t.episode,
+						"size": t.size,
+						"date": t.date
 					});
 				}
 				

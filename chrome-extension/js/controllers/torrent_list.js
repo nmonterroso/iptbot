@@ -9,7 +9,7 @@ define(['angular', 'lodash'], function(ng, _) {
 					getData();
 				},
 				getData = function() {
-					api.get('torrent', 'list', {'since': lastLoad}, function(list) {
+					api.get('torrent', 'list', {from: lastLoad}, function(list) {
 						console.log(list);
 					});
 				};
