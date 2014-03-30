@@ -105,18 +105,18 @@ class MysqlStorage extends DataStorage {
 			});
 	}
 	
-	Future<List<TorrentData>> getTorrents({from: 0, limit: 20}) {
+	Future<List<TorrentData>> getTorrents({until: 0, limit: 20}) {
 		List<TorrentData> torrents = [];
 		List<dynamic> params = [];
 
 		String sql = ""
-			"SELECT *, str_to_date(`date`, '%a, %d %b %Y %T') AS date_read "
+			"SELECT *, unix_timestamp(str_to_date(`date`, '%a, %d %b %Y %T')) AS date_read "
 			"FROM `torrents` "
-			"WHERE 1 ";
+			"WHERE `dismissed` = 0 ";
 
-		if (from > 0) {
+		if (until > 0) {
 			sql += "AND date_read < FROM_UNIXTIME(?)";
-			params.add(from);
+			params.add(until);
 		}
 
 		sql += "ORDER BY date_read DESC LIMIT ?";
@@ -135,6 +135,22 @@ class MysqlStorage extends DataStorage {
 			.catchError((error) {
 				print(error.toString());
 				return new Future.value([]);
+			});
+	}
+
+	Future<bool> dismiss(torrentId) {
+		String sql = ""
+			"UPDATE `torrents` "
+			"SET `dismissed`=1 "
+			"WHERE `torrent_id`=?";
+
+		return _pool.prepareExecute(sql, [torrentId])
+			.then((_) {
+				return new Future.value(true);
+			})
+			.catchError((error) {
+				print(error.toString());
+				return new Future.value(false);
 			});
 	}
 

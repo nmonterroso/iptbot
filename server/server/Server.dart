@@ -28,6 +28,8 @@ class Server {
 
 					switch (req.method) {
 						case 'POST':
+						case 'DELETE':
+						case 'PUT':
 							handler = new PostHandler();
 							break;
 						case 'GET':

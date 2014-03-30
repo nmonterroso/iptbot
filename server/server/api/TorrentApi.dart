@@ -8,9 +8,9 @@ class TorrentApi extends ApiBase {
 	}
 	TorrentApi._() : super();
 
-	Future<ApiResponse> list({from: 0, limit: 10}) {
-		if (from is! int) {
-			from = int.parse(from);
+	Future<ApiResponse> list({until: 0, limit: 10}) {
+		if (until is! int) {
+			until = int.parse(until);
 		}
 
 		if (limit is! int) {
@@ -21,7 +21,7 @@ class TorrentApi extends ApiBase {
 		
 		return
 			storage.then((DataStorage storage) {
-				return storage.getTorrents(from:from, limit:limit);
+				return storage.getTorrents(until:until, limit:limit);
 			})
 			.then((List<TorrentData> torrents) {
 				List responseData = [];
@@ -33,12 +33,26 @@ class TorrentApi extends ApiBase {
 						"detailLink": t.detailLink,
 						"season": t.season,
 						"episode": t.episode,
-						"size": t.size,
+						"size": t.friendlySize,
 						"date": t.date
 					});
 				}
 				
 				response._body = responseData;
+				return new Future.value(response);
+			});
+	}
+
+	Future<ApiResponse> dismiss(id) {
+		ApiResponse response = new ApiResponse();
+
+		return
+			storage.then((DataStorage storage) {
+				return storage.dismiss(id);
+			})
+			.then((dismissed) {
+				response._code = dismissed ? 200 : 503;
+
 				return new Future.value(response);
 			});
 	}

@@ -14,11 +14,29 @@ define(['angular', 'lodash', 'config'], function(ng, _, config) {
 					function(e) {
 						args.failure(e);
 					}
-				)
+				);
 			};
 
 			this.post = function(api, method /**, args..., params, onSuccess, onFailure */) {
 				var args = extractApiArgs(arguments);
+				$http.post(args.url, args.params)
+					.then(function(response) {
+						args.success(response.data);
+					},
+					function(e) {
+						args.failure(e);
+					}
+				);
+			};
+
+			this.del = function(api, method /**, args..., params, onSuccess, onFailure */) {
+				var args = extractApiArgs(arguments);
+				$http.delete(args.url)
+					.then(function(response) {
+						args.success(response.data);
+					}, function(e) {
+						args.failure(e);
+					});
 			};
 
 			var extractApiArgs = function(args) {
