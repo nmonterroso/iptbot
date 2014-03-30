@@ -1,17 +1,13 @@
-define([
-	'angular',
-	'lodash'
-],
-function(ng, _) {
-	var modules = [
-		'iptbot',
-		'iptbot.directives',
-		'iptbot.services',
-		'iptbot.controllers'
-	];
+define(['angular', 'lodash', 'angular-route'], function(ng, _) {
+	var modules = {
+		'iptbot': ['ngRoute'],
+		'iptbot.directives': [],
+		'iptbot.services': [],
+		'iptbot.controllers': []
+	};
 
-	_.each(modules, function(module) {
-		ng.module(module, []);
+	_.each(modules, function(deps, module) {
+		ng.module(module, deps);
 	});
 
 	require([
@@ -19,7 +15,7 @@ function(ng, _) {
 		'services/__init'
 	], function() {
 		ng.element(document).ready(function() {
-			ng.bootstrap(document, modules)
+			ng.bootstrap(document, _.keys(modules))
 		})
 	});
 });

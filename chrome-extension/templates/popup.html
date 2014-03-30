@@ -1,0 +1,19 @@
+<html ng-csp>
+<head lang="en">
+    <title>IPT Bot</title>
+    <script data-main="js/main.js" src="/js/vendor/require.js"></script>
+    <script src="/js/require.config.js"></script>
+
+    <link rel="stylesheet" href="/css/angular-csp.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<div ng-controller="RouteController">
+    <a href="#torrents">Torrents</a>
+    <a href="#subscriptions">Subscriptions</a>
+    <ng-view></ng-view>
+</div>
+
+</body>
+</html>
