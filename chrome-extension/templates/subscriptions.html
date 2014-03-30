@@ -1,1 +1,23 @@
-hi.
+<div style="text-align: center; margin-bottom: 10px;">
+    <input type="text" ng-model="sub.search" placeholder="Name" />
+    <input type="text" ng-model="sub.location" placeholder="Filesystem Location" />
+    <img src="/images/icon.png" ng-show="validate()" ng-click="subscribe()" style="cursor: pointer;" />
+</div>
+
+<table ng-show="subs.length > 0">
+    <tr ng-repeat="sub in subs">
+        <td>{{sub.search}}</td>
+        <td>{{sub.location}}</td>
+        <td style="text-align: center;">
+            <a href="#" ng-click="unsubscribe(sub.id)">
+                <img src="/images/dismiss.png" title="unsubscribe" />
+            </a>
+        </td>
+    </tr>
+</table>
+<div ng-show="!loading && subs.length == 0" style="text-align: center">
+    No subs
+</div>
+<div ng-show="loading" style="text-align: center">
+    <img src="/images/icon.png" />
+</div>

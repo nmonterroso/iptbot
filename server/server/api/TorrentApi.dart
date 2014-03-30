@@ -2,6 +2,7 @@ part of server;
 
 class TorrentApi extends ApiBase {
 	static final TorrentApi _instance = new TorrentApi._();
+	static final String API_NAME = 'torrent';
 
 	factory TorrentApi() {
 		return _instance;
@@ -48,7 +49,7 @@ class TorrentApi extends ApiBase {
 
 		return
 			storage.then((DataStorage storage) {
-				return storage.dismiss(id);
+				return storage.dismissTorrent(id);
 			})
 			.then((dismissed) {
 				response._code = dismissed ? 200 : 503;

@@ -3,7 +3,7 @@ define(['angular', 'lodash', 'jquery', 'angular-route'], function(ng, _, $) {
 		.controller('RouteController', ['$scope', function($scope) {
 
 		}])
-		.directive('navItem', ['$location', '$route', function($location, $route) {
+		.directive('navItem', function() {
 			return {
 				link: function(scope, e, attrs) {
 					$(e).click(function() {
@@ -13,7 +13,7 @@ define(['angular', 'lodash', 'jquery', 'angular-route'], function(ng, _, $) {
 					});
 				}
 			}
-		}])
+		})
 		.config(['$routeProvider', function($routeProvider) {
 			$routeProvider
 				.when('/torrents', {

@@ -17,7 +17,9 @@
         </td>
     </tr>
 </table>
-<div ng-show="!loading && torrents.length == 0">
-    No torrents :(
+<div ng-show="!loading && torrents.length == 0" style="text-align: center">
+    No torrents
 </div>
-<img src="/images/icon.png" ng-show="loading" />
+<div ng-show="loading" style="text-align: center">
+    <img src="/images/icon.png" />
+</div>

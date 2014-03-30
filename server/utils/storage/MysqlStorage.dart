@@ -20,7 +20,7 @@ class MysqlStorage extends DataStorage {
 	}
 
 	Future<int> getLastSeen() {
-		String sql = ""
+		String sql =
 			"SELECT `value`"
 			"FROM `vars`"
 			"WHERE `key`='last_seen_torrent_id'";
@@ -44,7 +44,7 @@ class MysqlStorage extends DataStorage {
 			return new Future.value(false);
 		}
 		
-		String sql = ""
+		String sql =
 			"REPLACE INTO `vars`"
 			"SET `key`='last_seen_torrent_id', `value`=?";
 		
@@ -61,7 +61,7 @@ class MysqlStorage extends DataStorage {
 	
 	Future<List<TorrentFilter>> getFilters() {
 		List<TorrentFilter> filters = [];
-		String sql = ""
+		String sql =
 			"SELECT `id`, `search`, `root_system_location`"
 			"FROM `subs`";
 		
@@ -81,7 +81,7 @@ class MysqlStorage extends DataStorage {
 	}
 	
 	Future _save(List<TorrentData> torrents) {
-		String sql = ""
+		String sql =
 			"REPLACE INTO `torrents`"
 			"SET `sub_id`=?, `torrent_id`=?, `season`=?, `episode`=?, "
 				"`title`=?, `link`=?, `date`=?, `size`=?";
@@ -109,7 +109,7 @@ class MysqlStorage extends DataStorage {
 		List<TorrentData> torrents = [];
 		List<dynamic> params = [];
 
-		String sql = ""
+		String sql =
 			"SELECT *, unix_timestamp(str_to_date(`date`, '%a, %d %b %Y %T')) AS date_read "
 			"FROM `torrents` "
 			"WHERE `dismissed` = 0 ";
@@ -119,8 +119,13 @@ class MysqlStorage extends DataStorage {
 			params.add(until);
 		}
 
-		sql += "ORDER BY date_read DESC LIMIT ?";
-		params.add(limit);
+		sql += "ORDER BY date_read DESC ";
+
+		if (limit > 0) {
+			sql += "LIMIT ?";
+			params.add(limit);
+		}
+
 
 		return
 			_pool.prepareExecute(sql, params)
@@ -138,8 +143,8 @@ class MysqlStorage extends DataStorage {
 			});
 	}
 
-	Future<bool> dismiss(torrentId) {
-		String sql = ""
+	Future<bool> dismissTorrent(torrentId) {
+		String sql =
 			"UPDATE `torrents` "
 			"SET `dismissed`=1 "
 			"WHERE `torrent_id`=?";
@@ -153,6 +158,51 @@ class MysqlStorage extends DataStorage {
 				return new Future.value(false);
 			});
 	}
+
+	Future<List> getSubscriptions() {
+		String sql =
+			"SELECT * "
+			"FROM `subs` "
+			"ORDER BY `search` ASC";
+		List subs = [];
+
+		return _pool.query(sql)
+			.then((results) {
+				return results.forEach((row) {
+					subs.add({
+						'id': row.id,
+						'search': row.search,
+						'root_system_location': (row.root_system_location as Blob).toString()
+					});
+				});
+			})
+			.then((_) {
+				return new Future.value(subs);
+			});
+	}
+
+	Future<bool> removeSubscription(subId) {
+		String sql =
+			"DELETE FROM `subs` "
+			"WHERE `id`=?";
+
+		return _pool.prepareExecute(sql, [subId])
+			.then((_) {
+				return new Future.value(true);
+			});
+	}
+
+	Future<int> addSubscription(search, location) {
+		String sql =
+			"INSERT INTO "
+			"`subs` SET `search`=?, `root_system_location`=?";
+
+		return _pool.prepareExecute(sql, [search, location])
+			.then((result) {
+				return new Future.value(result.insertId);
+			});
+	}
+
 
 	bool get open => _pool != null;
 	void close() {

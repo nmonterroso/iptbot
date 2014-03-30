@@ -26,3 +26,4 @@ part 'api/ApiBase.dart';
 part 'api/handlers/ApiHandler.dart';
 part 'api/ApiResponse.dart';
 part 'api/TorrentApi.dart';
+part 'api/SubscriptionApi.dart';

@@ -6,9 +6,11 @@ class PostHandler extends ApiHandler {
 	factory PostHandler() {
 		return _instance;
 	}
+
 	PostHandler._() {
 		_handlers.addAll({
-			'torrent': new TorrentApi()
+				TorrentApi.API_NAME: new TorrentApi(),
+				SubscriptionApi.API_NAME: new SubscriptionApi()
 		});
 	}
 }
