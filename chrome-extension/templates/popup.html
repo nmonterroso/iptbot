@@ -1,7 +1,7 @@
 <html ng-csp>
 <head lang="en">
     <title>IPT Bot</title>
-    <script data-main="js/main.js" src="/js/vendor/require.js"></script>
+    <script data-main="/js/main.js" src="/js/vendor/require.js"></script>
     <script src="/js/require.config.js"></script>
 
     <link rel="stylesheet" href="/css/angular-csp.css" />
@@ -10,8 +10,12 @@
 <body>
 
 <div ng-controller="RouteController">
-    <a href="#torrents">Torrents</a>
-    <a href="#subscriptions">Subscriptions</a>
+    <ul id="nav">
+        <li nav-item location="torrents" class="selected">Torrents</li>
+        <li nav-item location="subscriptions">Subscriptions</li>
+    </ul>
+    <div style="clear: both; height:10px;"></div>
+
     <ng-view></ng-view>
 </div>
 

@@ -9,8 +9,9 @@ table, th, td {
 }
 
 table {
-	width: 100%;
+	width: 777px;
 	border-spacing: 0;
+	border-collapse: collapse;
 }
 
 td, th {
@@ -20,4 +21,34 @@ td, th {
 
 a {
 	text-decoration: none;
+}
+
+#nav {
+	list-style-type: none;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+#nav li {
+	float: left;
+	text-align: center;
+	border: 1px solid black;
+	padding: 10px 0;
+	width: 49%;
+
+	letter-spacing: 1px;
+}
+
+#nav li.selected {
+	background-color: green;
+	color: white;
+	font-weight: normal;
+}
+
+#nav li:last-child {
+	border-left: none;
+}
+
+#nav li:hover {
+	cursor: pointer;
 }
