@@ -2,7 +2,7 @@ part of core;
 
 abstract class DataStorage {
 	bool get open;
-	Future<bool> connect(Config config);
+	Future<bool> connect();
 	Future<int> getLastSeen();
 	Future<bool> setLastSeen(int lastSeen);
 	Future<List<TorrentFilter>> getFilters();

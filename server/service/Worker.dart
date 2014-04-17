@@ -3,12 +3,9 @@ part of service;
 class Worker {
 	Config _config;
 	Timer _timer;
-	DataStorage _storage;
 	bool _working = false;
 
-	Worker(this._config) {
-		_storage = new MysqlStorage(); // TODO: init storage type from config?
-	}
+	Worker(this._config);
 
 	void start() {
 		if (_timer == null) {
@@ -29,8 +26,9 @@ class Worker {
 		}
 
 		_working = true;
+		MysqlStorage storage = new MysqlStorage(_config);
 
-		Future.wait([_storage.connect(_config), new HttpClient().getUrl(Uri.parse(_config.xmlUrl))])
+		Future.wait([storage.connect(), new HttpClient().getUrl(Uri.parse(_config.xmlUrl))])
 		.then((responses) {
 			bool connected = responses[0];
 			HttpClientRequest request = responses[1];
@@ -46,10 +44,10 @@ class Worker {
 		})
 		.then((List data) {
 			String body = data.join("");
-			return new Parser().parse(body, _storage);
+			return new Parser().parse(body, storage);
 		})
 		.then((torrents) {
-			return _storage.save(torrents);
+			return storage.save(torrents);
 		})
 		.catchError((error) {
 			print(error.toString());
@@ -57,8 +55,8 @@ class Worker {
 		.whenComplete(() {
 			_working = false;
 
-			if (_storage.open) {
-				_storage.close();
+			if (storage.open) {
+				storage.close();
 			}
 		});
 	}

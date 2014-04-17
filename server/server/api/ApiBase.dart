@@ -2,7 +2,6 @@ part of server;
 
 abstract class ApiBase {
 	static Config _config;
-	static MysqlStorage _storage;
 
 	InstanceMirror _mirror;
 
@@ -12,24 +11,12 @@ abstract class ApiBase {
 	
 	Future<DataStorage> get storage {
 		Future f;
+		MysqlStorage storage = new MysqlStorage(_config);
 		
-		if (_storage == null) {
-			_storage = new MysqlStorage();
-			f = _storage.isConnected();
-		} else {
-			f = new Future.value(true);
-		}
-		
-		return 
-			f.then((connected) {
-				if (!connected) {
-					return _storage.connect(_config);
-				}
-				
-				return new Future.value(true);
-			})
+		return
+			storage.connect()
 			.then((_) {
-				return new Future.value(_storage);
+				return new Future.value(storage);
 			});
 	}
 

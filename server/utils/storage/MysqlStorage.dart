@@ -1,17 +1,13 @@
 part of core;
 
 class MysqlStorage extends DataStorage {
-	static final MysqlStorage _instance = new MysqlStorage._();
-	
 	ConnectionPool _pool;
-	
-	factory MysqlStorage() {
-		return _instance;
-	}
-	MysqlStorage._();
+	Config _config;
 
-	Future<bool> connect(Config config) {
-		_pool = new ConnectionPool(host: config.mysqlHost, port: config.mysqlPort, user: config.mysqlUser, password: config.mysqlPass, db: config.mysqlDb);
+	MysqlStorage(this._config);
+
+	Future<bool> connect() {
+		_pool = new ConnectionPool(host: _config.mysqlHost, port: _config.mysqlPort, user: _config.mysqlUser, password: _config.mysqlPass, db: _config.mysqlDb);
 		return new Future.value(true);
 	}
 	
@@ -206,6 +202,7 @@ class MysqlStorage extends DataStorage {
 
 	bool get open => _pool != null;
 	void close() {
+		_pool.close();
 		// noop. sqljocky _pool.close() says it will probably break things.
 	}
 }
