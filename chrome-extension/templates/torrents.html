@@ -8,12 +8,8 @@
         </td>
         <td>{{torrent.date}}</td>
         <td style="text-align: center">
-            <a href="#" ng-click="download(torrent.id)">
-                <img src="/images/download.png" title="download" />
-            </a>
-            <a href="#" ng-click="dismiss(torrent.id)">
-                <img src="/images/dismiss.png" title="dismiss" />
-            </a>
+            <img src="/images/download.png" title="download" class="torrent_action" ng-click="download(torrent.id)" />
+            <img src="/images/dismiss.png" title="dismiss" class="torrent_action" ng-click="dismiss(torrent.id)" />
         </td>
     </tr>
 </table>

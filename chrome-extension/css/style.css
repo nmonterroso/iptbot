@@ -52,3 +52,7 @@ a {
 #nav li:hover {
 	cursor: pointer;
 }
+
+.torrent_action {
+	cursor: pointer;
+}
