@@ -11,6 +11,14 @@ define(['angular', 'lodash', 'jquery', 'jquery.timeago'], function(ng, _, $) {
 				});
 			};
 
+			$scope.download = function(id) {
+				api.get(apiName, 'download', id);
+
+				$scope.torrents = _.filter($scope.torrents, function(torrent) {
+					return torrent.id != id;
+				});
+			};
+
 			var apiName = 'torrent',
 				getData = function() {
 					$scope.loading = true;

@@ -57,4 +57,33 @@ class TorrentApi extends ApiBase {
 				return new Future.value(response);
 			});
 	}
+
+	Future<ApiResponse> download(id) {
+		ApiResponse response = new ApiResponse().._code = 200;
+
+		return
+			storage.then((DataStorage storage) => storage.getTorrent(id))
+			.then((TorrentData torrent) {
+				if (torrent == null) {
+					response._code = 404;
+					throw "unable to download torrent ${id}";
+				}
+
+				return new BTC().start(torrent);
+			})
+			.then((btcData) {
+				if (btcData == null) {
+					throw "invalid torrent returned";
+				}
+
+				response._body = btcData;
+				return dismiss(id);
+			})
+			.then((_) => response)
+			.catchError((error) {
+				print(error.toString());
+				response._body = error.toString();
+				return response;
+			});
+	}
 }

@@ -155,6 +155,28 @@ class MysqlStorage extends DataStorage {
 			});
 	}
 
+	Future<TorrentData> getTorrent(torrentId) {
+		String sql =
+			"SELECT * "
+			"FROM `torrents` "
+			"WHERE `torrent_id`=?";
+
+		return
+			_pool.prepareExecute(sql, [torrentId])
+			.then((Results results) {
+				if (results.affectedRows == 0) {
+					throw "invalid id: ${torrentId}";
+				}
+
+				return results.first;
+			})
+			.then((row) => new TorrentData.fromStorage(row))
+			.catchError((error) {
+				print(error.toString());
+				return null;
+			});
+	}
+
 	Future<List> getSubscriptions() {
 		String sql =
 			"SELECT * "

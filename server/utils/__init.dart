@@ -14,6 +14,7 @@ import 'package:xml/xml.dart';
 part 'config/Config.dart';
 part 'storage/DataStorage.dart';
 part 'storage/MysqlStorage.dart';
+part 'BTC.dart';
 part 'DirectoryWatcher.dart';
 part 'TorrentData.dart';
 part 'TorrentFilter.dart';

@@ -5,3 +5,4 @@ packages/*
 */*/*/*/packages
 */*/*/*/*/packages
 utils/config/config.json
+utils/config/btc.conf

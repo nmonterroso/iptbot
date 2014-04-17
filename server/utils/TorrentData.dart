@@ -21,6 +21,7 @@ class TorrentData {
 		link = (row.link as Blob).toString();
 		date = row.date;
 		_size = row.size;
+		_torrentId = row.torrent_id;
 	}
 
 	void set date(String date) {
