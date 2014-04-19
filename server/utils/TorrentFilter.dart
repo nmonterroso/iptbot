@@ -23,7 +23,7 @@ class TorrentFilter {
 		return new DirectoryWatcher(_rootSystemLocation).contains(torrent.season, torrent.episode)
 		.then((contains) {
 			TorrentData result = null;
-			contains = false; // TODO: remove this
+
 			if (!contains) {
 				torrent.subId = _subId;
 				result = torrent;
