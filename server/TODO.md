@@ -1,5 +1,6 @@
-* find out how to run as windows service - probably don't need to edit code for this
 * refactor dart code to not use Future.value. just retrun the value.
+* automatic downloading based on minimum file download size
+* work notifications into the chrome extension.
 * fork https://github.com/bittorrent/btc to make btcclient add &path="pathname" to the add_torrent_url command
 	** for now i just installed and hacked locally with changes to
 	*** btc_add.py arg parsing (and passing to client)

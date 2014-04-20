@@ -1,6 +1,7 @@
 {
 	"xmlUrl": "STRING: the url to fetch from ipt",
 	"workerInterval": "INT: time between fetching xmlUrl (in seconds)",
+	"btcLocation": "STRING: file system location for btc",
 	"mysql": {
 		"host": "STRING: hostname for mysql instance",
 		"port": "INT: port #",

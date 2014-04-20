@@ -61,6 +61,5 @@ class Config {
 
 	int get workerInterval => get('workerInterval');
 
-	String get downloadDir => get('downloadDir');
 	String get btc => get('btcLocation');
 }
