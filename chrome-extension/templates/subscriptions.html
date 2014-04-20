@@ -11,9 +11,7 @@
         <td>{{sub.search}}</td>
         <td>{{sub.location}}</td>
         <td style="text-align: center;">
-            <a href="#" ng-click="unsubscribe(sub.id)">
-                <img src="/images/dismiss.png" title="unsubscribe" />
-            </a>
+            <img ng-click="unsubscribe(sub.id)" src="/images/dismiss.png" class="pointer" title="unsubscribe" />
         </td>
     </tr>
 </table>
