@@ -5,6 +5,9 @@
                 {{torrent.title}}
             </a>
             - {{torrent.size}}
+            <img style="margin-left:5px;" ng-show="getStatus(torrent.id) == 'downloading'" src="/images/ajax-loader.gif" />
+            <img style="margin-left:5px; width:15px;" ng-show="getStatus(torrent.id) == 'completed'" src="/images/ok.png" />
+            <img style="margin-left:5px; width:15px;" ng-show="getStatus(torrent.id) == 'failed'" src="/images/dismiss.png" />
         </td>
         <td>{{torrent.date}}</td>
         <td style="text-align: center">
@@ -17,5 +20,5 @@
     No torrents
 </div>
 <div ng-show="loading" style="text-align: center">
-    <img src="/images/icon.png" />
+    <img src="/images/ajax-loader.gif" />
 </div>

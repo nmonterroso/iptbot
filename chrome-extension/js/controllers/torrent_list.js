@@ -12,11 +12,42 @@ define(['angular', 'lodash', 'jquery', 'jquery.timeago'], function(ng, _, $) {
 			};
 
 			$scope.download = function(id) {
-				api.get(apiName, 'download', id);
+				var torrentIndex = null;
 
-				$scope.torrents = _.filter($scope.torrents, function(torrent) {
-					return torrent.id != id;
+				_.each($scope.torrents, function(torrent, i) {
+					if (torrent.id == id) {
+						torrentIndex = i;
+						return false;
+					}
 				});
+
+				if (torrentIndex == null) {
+					console.log("unable to find torrent index for "+id);
+					return;
+				}
+
+				$scope.torrents[torrentIndex].status = 'downloading';
+				api.get(apiName, 'download', id,
+					function(torrentData) {
+						$scope.torrents[torrentIndex].status = 'completed';
+					},
+					function() {
+						$scope.torrents[torrentIndex].status = 'failed';
+					}
+				);
+			};
+
+			$scope.getStatus = function(id) {
+				var status = 'unknown';
+
+				_.each($scope.torrents, function(torrent) {
+					if (torrent.id == id) {
+						status = torrent.status;
+						return false;
+					}
+				});
+
+				return status;
 			};
 
 			var apiName = 'torrent',
@@ -27,6 +58,7 @@ define(['angular', 'lodash', 'jquery', 'jquery.timeago'], function(ng, _, $) {
 
 						_.each($scope.torrents, function(torrent, i) {
 							$scope.torrents[i].date = $.timeago(torrent.date);
+							$scope.torrents[i].status = 'init';
 						});
 
 						$scope.loading = false;

@@ -73,6 +73,7 @@ class TorrentApi extends ApiBase {
 			})
 			.then((btcData) {
 				if (btcData == null) {
+					response._code = 500;
 					throw "invalid torrent returned";
 				}
 

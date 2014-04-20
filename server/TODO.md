@@ -1,5 +1,5 @@
 * find out how to run as windows service - probably don't need to edit code for this
-* change front end - get icons for ajax loading, use that when downloading, change to another icon when successful or x when failed (don't auto dismiss)
+* refactor dart code to not use Future.value. just retrun the value.
 * fork https://github.com/bittorrent/btc to make btcclient add &path="pathname" to the add_torrent_url command
 	** for now i just installed and hacked locally with changes to
 	*** btc_add.py arg parsing (and passing to client)
