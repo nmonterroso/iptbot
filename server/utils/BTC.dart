@@ -14,9 +14,10 @@ class BTC {
 		};
 
 		return
-			Process.run(config.btc, ['add', '--url', torrent.link, '--path', torrent.title.replaceAll(' ', '.')], environment: environment)
+			Process.run(config.btc, ['add', '--url', torrent.link], environment: environment)
 			.then((ProcessResult p) {
 				if (p.exitCode != 0) {
+					print(p.stderr);
 					return null;
 				}
 

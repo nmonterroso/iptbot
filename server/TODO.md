@@ -5,5 +5,10 @@
 	** for now i just installed and hacked locally with changes to
 	*** btc_add.py arg parsing (and passing to client)
 	*** btcclient.py build out string with &path=path if present
+	*** btc.py:41
+			if env_config_file:
+					config_file = env_config_file
+			else:
+					config_file = os.path.join(os.getenv(env_varname), '.btc')
 * make episode regex match #x##
 * at least try to always get a torrent id when parsing, to save parsing again on next pass
