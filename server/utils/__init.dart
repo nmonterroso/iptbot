@@ -19,3 +19,4 @@ part 'DirectoryWatcher.dart';
 part 'TorrentData.dart';
 part 'TorrentFilter.dart';
 part 'XmlElementHelper.dart';
+part 'SocketClients.dart';

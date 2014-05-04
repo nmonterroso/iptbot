@@ -32,11 +32,11 @@ class Worker {
 		.then((responses) {
 			bool connected = responses[0];
 			HttpClientRequest request = responses[1];
-			
+
 			if (!connected) {
 				throw "unable to connect to data storage";
 			}
-			
+
 			return request.close();
 		})
 		.then((HttpClientResponse response) {
@@ -47,6 +47,7 @@ class Worker {
 			return new Parser().parse(body, storage);
 		})
 		.then((torrents) {
+			new SocketClients().broadcast(SocketClients.TYPE_AVAILABLE, 'new');
 			return storage.save(torrents);
 		})
 		.catchError((error) {

@@ -22,7 +22,9 @@ class Server {
 		HttpServer.bind(_config.httpHost, _config.httpPort)
 		.then((HttpServer server) {
 			_router = new Router(server)
-				..serve('/socket').transform(new WebSocketTransformer()).listen(onWebSocket)
+				..serve('/socket').transform(new WebSocketTransformer()).listen((WebSocket socket) {
+					new SocketClients()..handle(socket);
+				})
 				..serve(API_URL).listen((HttpRequest req) {
 					Handler handler;
 
@@ -73,15 +75,5 @@ class Server {
 			req.response.write("an unexpected error occurred");
 			req.response.close();
 		});
-	}
-
-	void onWebSocket(WebSocket socket) {
-		socket
-			.map((string) => JSON.decode(string))
-			.listen((json) {
-
-			}, onError: (error) {
-
-			});
 	}
 }

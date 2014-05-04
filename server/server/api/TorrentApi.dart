@@ -40,7 +40,8 @@ class TorrentApi extends ApiBase {
 				}
 				
 				response._body = responseData;
-				return new Future.value(response);
+				new SocketClients()..broadcast(SocketClients.TYPE_AVAILABLE, torrents.length);
+				return response;
 			});
 	}
 
@@ -53,9 +54,9 @@ class TorrentApi extends ApiBase {
 			})
 			.then((dismissed) {
 				response._code = dismissed ? 200 : 503;
-
-				return new Future.value(response);
-			});
+				return list(); // call to update badge
+			})
+			.then((_) => response);
 	}
 
 	Future<ApiResponse> download(id) {
