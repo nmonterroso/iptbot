@@ -17,12 +17,18 @@
 				updateBadge(data.args);
 				break;
 			default:
-				console.log("unsupported operation: "+data.method)
+				console.log("unsupported operation: "+data.method);
+				break;
 		}
 	};
 
 	function updateBadge(count) {
-		var displayCount = count > 0 ? count+'' : '';
+		var displayCount = count;
+
+		if (typeof count == "number") {
+			displayCount = count > 0 ? count+'' : '';
+		}
+
 		chrome.browserAction.setBadgeText({text: displayCount});
 	}
 })();
