@@ -4,6 +4,7 @@ class SocketClients {
 	static final _instance = new SocketClients._();
 	static final CLOSED_STATES = [WebSocket.CLOSED, WebSocket.CLOSING];
 	static final TYPE_AVAILABLE = 'torrents_available';
+	static final TYPE_UPDATE = 'torrent_count_update';
 
 	List sockets;
 

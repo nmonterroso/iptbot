@@ -14,7 +14,20 @@
 		var data = JSON.parse(event.data);
 		switch (data.method) {
 			case 'torrents_available':
-				updateBadge(data.args);
+				updateBadge(parseInt(data.args));
+				break;
+			case 'torrent_count_update':
+				chrome.browserAction.getBadgeText({}, function(text) {
+					var newCount;
+
+					if (text == '') {
+						newCount = parseInt(data.args);
+					} else {
+						newCount = parseInt(text) + parseInt(data.args);
+					}
+
+					updateBadge(newCount);
+				});
 				break;
 			default:
 				console.log("unsupported operation: "+data.method);
@@ -23,12 +36,7 @@
 	};
 
 	function updateBadge(count) {
-		var displayCount = count;
-
-		if (typeof count == "number") {
-			displayCount = count > 0 ? count+'' : '';
-		}
-
+		displayCount = count > 0 ? count.toString() : '';
 		chrome.browserAction.setBadgeText({text: displayCount});
 	}
 })();

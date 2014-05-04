@@ -47,7 +47,10 @@ class Worker {
 			return new Parser().parse(body, storage);
 		})
 		.then((torrents) {
-			new SocketClients().broadcast(SocketClients.TYPE_AVAILABLE, 'new');
+			if (torrents.length > 0) {
+				new SocketClients().broadcast(SocketClients.TYPE_UPDATE, torrents.length);
+			}
+
 			return storage.save(torrents);
 		})
 		.catchError((error) {
