@@ -1,7 +1,7 @@
 part of core;
 
 class TorrentData {
-	static final RegExp _sizeRegex = new RegExp(r'([0-9\.]+) (MB|GB)$');
+	static final RegExp _sizeRegex = new RegExp(r'([0-9\.]+) (MB|GB)');
 	static final RegExp _idRegex = new RegExp(r'iptorrents.com/download.php/([0-9]+)/');
 	static final RegExp _tvEpisodeRegex = new RegExp(r's([0-9 ]+)e([0-9]+)', caseSensitive: false);
 
