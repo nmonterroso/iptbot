@@ -6,6 +6,12 @@ This part provides a frontend for interacting with the server and service provid
 
 Installation
 ------------
+```
+cp manifest.sample.json manifest.json
+cp js/config.sample.js js/config.js
+```
+Then, edit manifest.json and config.js. They should be self-documenting.
+
 Until I get around to publishing this on the chrome webstore, the only way to install is to follow the instructions provided by Google on manually packaging extensions (https://developer.chrome.com/extensions/packaging), and then to drag the generated .crx to the chrome://extensions page.
 
 Usage

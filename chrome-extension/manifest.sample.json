@@ -4,7 +4,7 @@
 	"description": "Front-end for iptbot. This is a sample config because i don't want to expose my home ip address to the world.",
 	"version": "1.0",
 	"permissions": [
-		"url to iptbot service. can be local, i guess."
+		"url to iptbot service. Must end in /, ex: http://1.2.3.4:8080/"
 	],
 	"browser_action": {
 		"default_icon": "icon.png",
